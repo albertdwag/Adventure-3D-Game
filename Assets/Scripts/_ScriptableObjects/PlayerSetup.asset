@@ -12,17 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da091b5f71b9eb14f96da960cf12264c, type: 3}
   m_Name: PlayerSetup
   m_EditorClassIdentifier: 
-  moveLeftButton: 100
-  moveRightButton: 97
   jumpButton: 32
-  springButton: 306
-  friction: {x: -0.1, y: 0}
-  speed: 10
-  runningSpeed: 15
+  speed: 20
   forceJump: 18
-  minJumpHeight: 5
-  triggerDeath: Death
-  runBool: Running
-  JumpScaleY: 1.5
-  animationDuration: 0.3
-  ease: 27
+  isGrounded: 1

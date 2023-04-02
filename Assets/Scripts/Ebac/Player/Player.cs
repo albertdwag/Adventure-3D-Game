@@ -8,8 +8,9 @@ public class Player : MonoBehaviour
     [SerializeField] private SOPlayerSetup _playerSetup;
     [SerializeField] private Rigidbody myRigidbody;
 
-    private void FixedUpdate()
+    private void Update()
     {
+        CheckStates();
         HandleMove();
         HandleJump();
     }
@@ -26,9 +27,27 @@ public class Player : MonoBehaviour
 
     private void HandleJump()
     {
-        if (Input.GetKeyDown(_playerSetup.jumpButton))
+        if (Input.GetKeyDown(_playerSetup.jumpButton) && _playerSetup.isGrounded)
         {
             myRigidbody.AddForce(Vector3.up * _playerSetup.forceJump, ForceMode.Impulse);
+            _playerSetup.isGrounded = false;
         }
     }
+
+    private void CheckStates()
+    {
+        if (myRigidbody.velocity.magnitude > _playerSetup.minVelocityMagnitude)
+            PlayerStateMachine.Instance.stateMachine.SwitchState(PlayerStateMachine.PlayerStates.MOVING);
+        else if (myRigidbody.velocity.magnitude < _playerSetup.minVelocityMagnitude)
+            PlayerStateMachine.Instance.stateMachine.SwitchState(PlayerStateMachine.PlayerStates.IDLE);
+        else if (!_playerSetup.isGrounded)
+            PlayerStateMachine.Instance.stateMachine.SwitchState(PlayerStateMachine.PlayerStates.JUMPING);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+            _playerSetup.isGrounded = true;
+    }
+
 }
