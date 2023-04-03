@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: PlayerSetup
   m_EditorClassIdentifier: 
   jumpButton: 32
-  speed: 20
+  speed: 25
+  turnSpeed: 300
   forceJump: 18
   isGrounded: 1
+  minVelocityMagnitude: 0.1

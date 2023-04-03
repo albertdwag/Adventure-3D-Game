@@ -10,7 +10,8 @@ public class SOPlayerSetup : ScriptableObject
     public KeyCode jumpButton = KeyCode.Space;
 
     [Header("Movement Settings")]
-    public float speed = 10;
+    public float speed = 10f;
+    public float turnSpeed = 1f;
     public float forceJump = 18;
     public bool isGrounded = true;
     public float minVelocityMagnitude = 0.1f;
