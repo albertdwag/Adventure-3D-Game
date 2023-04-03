@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Animator Settings")]
+    public Animator animator;
+
     [Header("Movement Settings")]
     [SerializeField] private SOPlayerSetup _playerSetup;
     [SerializeField] private CharacterController _characterController;
@@ -20,13 +23,17 @@ public class Player : MonoBehaviour
 
     private void HandleMove()
     {
+        var vertical = Input.GetAxis("Vertical");
+
         transform.Rotate(0, Input.GetAxis("Horizontal") * _playerSetup.turnSpeed * Time.deltaTime, 0);
-        var speedVector = transform.forward * Input.GetAxis("Vertical") * _playerSetup.speed;
+        var speedVector = transform.forward * vertical * _playerSetup.speed;
 
         vSpeed += gravity * Time.deltaTime;
         speedVector.y = vSpeed;
 
         _characterController.Move(speedVector * Time.deltaTime);
+
+        animator.SetBool("Run", vertical != 0);
 
         //float horizontal = Input.GetAxis("Horizontal");
         //float vertical = Input.GetAxis("Vertical");
