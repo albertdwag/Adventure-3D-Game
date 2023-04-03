@@ -8,13 +8,12 @@ public class Player : MonoBehaviour
     public Animator animator;
 
     [Header("Movement Settings")]
+    public float gravity = -9.8f;
     [SerializeField] private SOPlayerSetup _playerSetup;
     [SerializeField] private CharacterController _characterController;
-    public float gravity = -9.8f;
-
+     
     private float vSpeed = 0f;
-
-    //[SerializeField] private Rigidbody myRigidbody;
+    private bool isWalking;
 
     private void Update()
     {
@@ -29,12 +28,22 @@ public class Player : MonoBehaviour
         transform.Rotate(0, Input.GetAxis("Horizontal") * _playerSetup.turnSpeed * Time.deltaTime, 0);
         var speedVector = transform.forward * vertical * _playerSetup.speed;
 
+        isWalking = vertical != 0;
+        if (isWalking && Input.GetKey(_playerSetup.runButton))
+        {
+            speedVector *= _playerSetup.speedRun;
+            animator.speed = _playerSetup.speedRun;
+        }
+        else
+        {
+            animator.speed = 1;
+        }
+
         vSpeed += gravity * Time.deltaTime;
         speedVector.y = vSpeed;
 
         _characterController.Move(speedVector * Time.deltaTime);
-
-        animator.SetBool("Run", vertical != 0);
+        animator.SetBool("Run", isWalking);
 
         //float horizontal = Input.GetAxis("Horizontal");
         //float vertical = Input.GetAxis("Vertical");

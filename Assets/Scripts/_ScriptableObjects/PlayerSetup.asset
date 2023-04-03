@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: PlayerSetup
   m_EditorClassIdentifier: 
   jumpButton: 32
+  runButton: 304
   speed: 25
+  speedRun: 1.5
   turnSpeed: 300
   forceJump: 18
   isGrounded: 0
