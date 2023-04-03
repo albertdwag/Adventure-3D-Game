@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        HandleJump();
         HandleMove();
     }
 
@@ -45,28 +46,21 @@ public class Player : MonoBehaviour
         ////myRigidbody.MovePosition(transform.position + movement);
     }
 
-    //private void HandleJump()
-    //{
-    //    if (Input.GetKeyDown(_playerSetup.jumpButton) && _playerSetup.isGrounded)
-    //    {
-    //        myRigidbody.AddForce(Vector3.up * _playerSetup.forceJump, ForceMode.Impulse);
-    //        _playerSetup.isGrounded = false;
-    //    }
-    //}
+    private void HandleJump()
+    {
+        if (Input.GetKeyDown(_playerSetup.jumpButton) && _characterController.isGrounded)
+        {
+            vSpeed = _playerSetup.forceJump;
+        }
+    }
 
-    //private void CheckStates()
+    //private void checkstates()
     //{
-    //    if (myRigidbody.velocity.magnitude > _playerSetup.minVelocityMagnitude)
-    //        PlayerStateMachine.Instance.stateMachine.SwitchState(PlayerStateMachine.PlayerStates.MOVING);
-    //    else if (myRigidbody.velocity.magnitude < _playerSetup.minVelocityMagnitude)
-    //        PlayerStateMachine.Instance.stateMachine.SwitchState(PlayerStateMachine.PlayerStates.IDLE);
-    //    else if (!_playerSetup.isGrounded)
-    //        PlayerStateMachine.Instance.stateMachine.SwitchState(PlayerStateMachine.PlayerStates.JUMPING);
-    //}
-
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Ground"))
-    //        _playerSetup.isGrounded = true;
+    //    if (myrigidbody.velocity.magnitude > _playersetup.minvelocitymagnitude)
+    //        playerstatemachine.instance.statemachine.switchstate(playerstatemachine.playerstates.moving);
+    //    else if (myrigidbody.velocity.magnitude < _playersetup.minvelocitymagnitude)
+    //        playerstatemachine.instance.statemachine.switchstate(playerstatemachine.playerstates.idle);
+    //    else if (!_playersetup.isgrounded)
+    //        playerstatemachine.instance.statemachine.switchstate(playerstatemachine.playerstates.jumping);
     //}
 }

@@ -16,5 +16,5 @@ MonoBehaviour:
   speed: 25
   turnSpeed: 300
   forceJump: 18
-  isGrounded: 1
+  isGrounded: 0
   minVelocityMagnitude: 0.1
