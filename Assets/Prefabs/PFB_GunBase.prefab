@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 991191159526969161}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   prefabProjectile: {fileID: 4750566139166531562, guid: a74472a190e4d03408d3cb95f3c90244, type: 3}
   positionToShoot: {fileID: 8721560045311531427}
   speed: 50
-  timeBetweenShoot: 0.3
+  timeBetweenShoot: 0.2
 --- !u!1 &2574020534183884758
 GameObject:
   m_ObjectHideFlags: 0
