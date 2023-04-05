@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 namespace Ebac.Enemy
 {
@@ -10,6 +11,11 @@ namespace Ebac.Enemy
 
         [SerializeField] private float _currentLife;
 
+        [Header("Start Animation")]
+        public float startAnimationDuration = .2f;
+        public Ease startAnimatioEase = Ease.OutBack;
+        public bool startWithBornAnimation = true;
+
         private void Awake()
         {
             Init();
@@ -18,6 +24,8 @@ namespace Ebac.Enemy
         protected virtual void Init()
         {
             ResetLife();
+            if(startWithBornAnimation)
+                BornAnimation();
         }
 
         protected void ResetLife()
@@ -41,5 +49,12 @@ namespace Ebac.Enemy
             if (_currentLife <= 0)
                 Kill();
         }
+
+        #region ANIMATION
+        private void BornAnimation()
+        {
+            transform.DOScale(0, startAnimationDuration).SetEase(startAnimatioEase).From();
+        }
+        #endregion
     }
 }
