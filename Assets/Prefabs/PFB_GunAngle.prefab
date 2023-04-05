@@ -80,6 +80,7 @@ MonoBehaviour:
   positionToShoot: {fileID: 8490384038464955505}
   speed: 50
   timeBetweenShoot: 0.3
+  uIGunUpdaters: []
   ammo: 5
   timeToReload: 1
   amountPerShoot: 4
