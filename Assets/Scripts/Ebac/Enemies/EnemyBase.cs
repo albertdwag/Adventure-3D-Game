@@ -6,8 +6,9 @@ using Ebac.Animation;
 
 namespace Ebac.Enemy
 {
-    public class EnemyBase : MonoBehaviour
+    public class EnemyBase : MonoBehaviour, IDamageable
     {
+        public Collider hitBox;
         public float StartLife = 10f;
 
         [Header("Start Animation")]
@@ -44,6 +45,7 @@ namespace Ebac.Enemy
         }
         protected virtual void OnKill() 
         {
+            if (hitBox != null) hitBox.enabled = false;
             Destroy(gameObject, 3f);
         }
 
@@ -64,7 +66,13 @@ namespace Ebac.Enemy
         public void PlayAnimationByTrigger(AnimationType animationType)
         {
             _animationBase.PlayerAnimationByTrigger(animationType);
-        }    
+        }
+
         #endregion
+
+        public void Damage(float damage)
+        {
+            OnDamage(damage);
+        }
     }
 }

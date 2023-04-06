@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0a9c69b6295b9540830c7f6d71d7548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitBox: {fileID: 157655464}
   StartLife: 10
   startAnimationDuration: 0.2
   startAnimatioEase: 27
@@ -78,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ad00408e3aba954f8398fe3065f941f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  animator: {fileID: 6623107059145646720}
   animationSetups:
   - animationType: 1
     trigger: Idle
@@ -160,5 +161,10 @@ PrefabInstance:
 --- !u!4 &5477799033484250550 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8115776127002297597, guid: 86dc2d7519f0fa047a4a9adbc81a8da7, type: 3}
+  m_PrefabInstance: {fileID: 4369628884205816139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6623107059145646720 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7443898874300591051, guid: 86dc2d7519f0fa047a4a9adbc81a8da7, type: 3}
   m_PrefabInstance: {fileID: 4369628884205816139}
   m_PrefabAsset: {fileID: 0}
