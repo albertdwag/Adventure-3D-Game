@@ -56,6 +56,8 @@ namespace Ebac.Enemy
             if (flashColor != null) flashColor.Flash();
             if (particleSystem != null) particleSystem.Emit(15);
 
+            transform.position -= transform.forward;
+
             _currentLife -= f;
 
             if (_currentLife <= 0)
@@ -78,6 +80,12 @@ namespace Ebac.Enemy
         public void Damage(float damage)
         {
             OnDamage(damage);
+        }
+
+        public void Damage(float damage, Vector3 dir)
+        {
+            OnDamage(damage);
+            transform.DOMove(transform.position - dir, .1f);
         }
     }
 }
