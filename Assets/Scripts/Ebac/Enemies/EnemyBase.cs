@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Ebac.Animation;
 
 namespace Ebac.Enemy
 {
@@ -9,12 +10,15 @@ namespace Ebac.Enemy
     {
         public float StartLife = 10f;
 
-        [SerializeField] private float _currentLife;
-
         [Header("Start Animation")]
         public float startAnimationDuration = .2f;
         public Ease startAnimatioEase = Ease.OutBack;
         public bool startWithBornAnimation = true;
+
+        [Header("Animation")]
+        [SerializeField] private float _currentLife;
+        [SerializeField] private AnimationBase _animationBase;
+
 
         private void Awake()
         {
@@ -36,10 +40,11 @@ namespace Ebac.Enemy
         protected virtual void Kill() 
         {
             OnKill();
+            _animationBase.PlayerAnimationByTrigger(AnimationType.DEATH);
         }
         protected virtual void OnKill() 
         {
-            Destroy(gameObject);
+            Destroy(gameObject, 3f);
         }
 
         public void OnDamage(float f)
@@ -55,6 +60,11 @@ namespace Ebac.Enemy
         {
             transform.DOScale(0, startAnimationDuration).SetEase(startAnimatioEase).From();
         }
+
+        public void PlayAnimationByTrigger(AnimationType animationType)
+        {
+            _animationBase.PlayerAnimationByTrigger(animationType);
+        }    
         #endregion
     }
 }
