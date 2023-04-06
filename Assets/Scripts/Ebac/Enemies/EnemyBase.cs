@@ -9,6 +9,8 @@ namespace Ebac.Enemy
     public class EnemyBase : MonoBehaviour, IDamageable
     {
         public Collider hitBox;
+        public FlashColor flashColor;
+        public ParticleSystem particleSystem;
         public float StartLife = 10f;
 
         [Header("Start Animation")]
@@ -51,6 +53,9 @@ namespace Ebac.Enemy
 
         public void OnDamage(float f)
         {
+            if (flashColor != null) flashColor.Flash();
+            if (particleSystem != null) particleSystem.Emit(15);
+
             _currentLife -= f;
 
             if (_currentLife <= 0)
