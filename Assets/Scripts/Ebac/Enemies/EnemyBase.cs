@@ -10,7 +10,8 @@ namespace Ebac.Enemy
     {
         public Collider hitBox;
         public FlashColor flashColor;
-        public ParticleSystem particleSystem;
+        public ParticleSystem particles;
+        public bool lookAtPlayer = false;
         public float StartLife = 10f;
 
         [Header("Start Animation")]
@@ -22,10 +23,16 @@ namespace Ebac.Enemy
         [SerializeField] private float _currentLife;
         [SerializeField] private AnimationBase _animationBase;
 
+        private Player _player;
 
         private void Awake()
         {
             Init();
+        }
+
+        private void Start()
+        {
+            _player = GameObject.FindObjectOfType<Player>();
         }
 
         protected virtual void Init()
@@ -54,7 +61,7 @@ namespace Ebac.Enemy
         public void OnDamage(float f)
         {
             if (flashColor != null) flashColor.Flash();
-            if (particleSystem != null) particleSystem.Emit(15);
+            if (particles != null) particles.Emit(15);
 
             transform.position -= transform.forward;
 
@@ -86,6 +93,22 @@ namespace Ebac.Enemy
         {
             OnDamage(damage);
             transform.DOMove(transform.position - dir, .1f);
+        }
+
+        public virtual void Update()
+        {
+            if (lookAtPlayer)
+                transform.LookAt(_player.transform.position);
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            Player p = collision.transform.GetComponent<Player>();
+
+            if (p != null)
+            {
+                p.Damage(1);
+            }
         }
     }
 }

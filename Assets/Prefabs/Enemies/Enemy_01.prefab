@@ -646,13 +646,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5462466129048370768}
+  - component: {fileID: 416664380727881500}
   - component: {fileID: 3951472157596753870}
   - component: {fileID: 2187643726635703068}
   - component: {fileID: 3567839969787372613}
   - component: {fileID: 6058210171538255322}
   m_Layer: 0
   m_Name: Enemy_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -674,6 +675,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &416664380727881500
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6484445399177786739}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!65 &3951472157596753870
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -743,6 +760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 7680980508600322239}
+  skinnedMeshRenderer: {fileID: 0}
   color: {r: 0.7264151, g: 0.26383942, b: 0.26383942, a: 0.33333334}
   duration: 0.1
 --- !u!1 &6713053474363836182

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     [Header("Animator Settings")]
     public Animator animator;
@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     public float gravity = -9.8f;
     [SerializeField] private SOPlayerSetup _playerSetup;
     [SerializeField] private CharacterController _characterController;
+
+    [Header("Flash")]
+    public List<FlashColor> flashColors;
      
     private float vSpeed = 0f;
     private bool isWalking;
@@ -20,6 +23,18 @@ public class Player : MonoBehaviour
         HandleJump();
         HandleMove();
     }
+
+    #region LIFE
+    public void Damage(float damage)
+    {
+        flashColors.ForEach(i => i.Flash());
+    }
+
+    public void Damage(float damage, Vector3 dir)
+    {
+        Damage(damage);
+    }
+    #endregion
 
     private void HandleMove()
     {
@@ -62,6 +77,7 @@ public class Player : MonoBehaviour
             vSpeed = _playerSetup.forceJump;
         }
     }
+
 
     //private void checkstates()
     //{
