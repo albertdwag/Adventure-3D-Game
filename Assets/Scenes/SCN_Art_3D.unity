@@ -5145,7 +5145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76cccf11c41a6fb4a8f8fc853d5a63e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startLife: 10
+  startLife: 5
   destroyOnKill: 0
   _currentLife: 0
 --- !u!1001 &909364403
