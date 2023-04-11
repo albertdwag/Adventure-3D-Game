@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour
 {
     [Header("Animator Settings")]
     public Animator animator;
@@ -14,9 +14,26 @@ public class Player : MonoBehaviour, IDamageable
 
     [Header("Flash")]
     public List<FlashColor> flashColors;
+
+    public List<Collider> colliders;
+    public HealthBase healthBase;
      
     private float vSpeed = 0f;
-    private bool isWalking;
+    private bool _isWalking;
+    private bool _alive = true;
+
+    private void OnValidate()
+    {
+        if (healthBase == null) healthBase = GetComponent<HealthBase>();
+    }
+
+    private void Awake()
+    {
+        OnValidate();
+
+        healthBase.OnDamage += Damage;
+        healthBase.OnKill += OnKill;
+    }
 
     private void Update()
     {
@@ -24,15 +41,26 @@ public class Player : MonoBehaviour, IDamageable
         HandleMove();
     }
 
+
     #region LIFE
-    public void Damage(float damage)
+    private void OnKill(HealthBase h)
+    {
+        if (_alive)
+        {
+            _alive = false;
+            animator.SetTrigger("Death");
+            colliders.ForEach(i => i.enabled = false);
+        }
+    }
+
+    public void Damage(HealthBase h)
     {
         flashColors.ForEach(i => i.Flash());
     }
 
     public void Damage(float damage, Vector3 dir)
     {
-        Damage(damage);
+        //Damage(damage);
     }
     #endregion
 
@@ -43,8 +71,8 @@ public class Player : MonoBehaviour, IDamageable
         transform.Rotate(0, Input.GetAxis("Horizontal") * _playerSetup.turnSpeed * Time.deltaTime, 0);
         var speedVector = transform.forward * vertical * _playerSetup.speed;
 
-        isWalking = vertical != 0;
-        if (isWalking && Input.GetKey(_playerSetup.runButton))
+        _isWalking = vertical != 0;
+        if (_isWalking && Input.GetKey(_playerSetup.runButton))
         {
             speedVector *= _playerSetup.speedRun;
             animator.speed = _playerSetup.speedRun;
@@ -58,7 +86,7 @@ public class Player : MonoBehaviour, IDamageable
         speedVector.y = vSpeed;
 
         _characterController.Move(speedVector * Time.deltaTime);
-        animator.SetBool("Run", isWalking);
+        animator.SetBool("Run", _isWalking);
 
         //float horizontal = Input.GetAxis("Horizontal");
         //float vertical = Input.GetAxis("Vertical");
