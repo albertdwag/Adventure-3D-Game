@@ -15,8 +15,10 @@ public class Player : MonoBehaviour
     [Header("Flash")]
     public List<FlashColor> flashColors;
 
-    public List<Collider> colliders;
+    [Header("Life")]
     public HealthBase healthBase;
+
+    public List<Collider> colliders;
      
     private float vSpeed = 0f;
     private bool _isWalking;

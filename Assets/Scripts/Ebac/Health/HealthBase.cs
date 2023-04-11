@@ -7,10 +7,13 @@ public class HealthBase : MonoBehaviour, IDamageable
 {
     public float startLife = 10f;
     public bool destroyOnKill = false;
-    [SerializeField] private float _currentLife;
+
+    public UIFillUpdater uiGunUpdater;
 
     public Action<HealthBase> OnDamage;
     public Action<HealthBase> OnKill;
+
+    [SerializeField] private float _currentLife;
 
     public void Awake()
     {
@@ -48,11 +51,20 @@ public class HealthBase : MonoBehaviour, IDamageable
         if (_currentLife <= 0)
             Kill();
 
+        UpdateUI();
         OnDamage?.Invoke(this);
     }
 
     public void Damage(float damage, Vector3 dir)
     {
         Damage(damage);
+    }
+
+    private void UpdateUI()
+    {
+        if(uiGunUpdater != null)
+        {
+            uiGunUpdater.UpdateValue((float)_currentLife / startLife);
+        }
     }
 }
