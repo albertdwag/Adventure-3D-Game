@@ -52,6 +52,8 @@ public class Player : MonoBehaviour
             _alive = false;
             animator.SetTrigger("Death");
             colliders.ForEach(i => i.enabled = false);
+
+            Invoke(nameof(Revive), 3f);
         }
     }
 
@@ -63,6 +65,29 @@ public class Player : MonoBehaviour
     public void Damage(float damage, Vector3 dir)
     {
         //Damage(damage);
+    }
+
+    private void Revive()
+    {
+        healthBase.ResetLife();
+        animator.SetTrigger("Revive");
+        _alive = true;
+        Respawn();
+        Invoke(nameof(TurnOnCollicers), .1f);
+    }
+
+    private void TurnOnCollicers()
+    {
+        colliders.ForEach(i => i.enabled = true);
+    }
+
+    [NaughtyAttributes.Button]
+    public void Respawn()
+    {
+        if (CheckpointManager.Instance.HasCheckpoint())
+        {
+            transform.position = CheckpointManager.Instance.GetPositionFromLastCheckpoint();
+        }
     }
     #endregion
 
@@ -107,7 +132,6 @@ public class Player : MonoBehaviour
             vSpeed = _playerSetup.forceJump;
         }
     }
-
 
     //private void checkstates()
     //{
