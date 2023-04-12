@@ -9,7 +9,7 @@ public class CheckPointBase : MonoBehaviour
     public string tagToCompare = "Player";
 
     private bool _checkpointActived = false;
-    private string _checkPointKey = "CheckpoinKey";
+    //private string _checkPointKey = "CheckpoinKey";
 
     private void OnTriggerEnter(Collider other)
     {

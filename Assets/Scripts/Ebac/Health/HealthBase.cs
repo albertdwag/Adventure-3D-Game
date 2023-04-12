@@ -8,7 +8,7 @@ public class HealthBase : MonoBehaviour, IDamageable
     public float startLife = 10f;
     public bool destroyOnKill = false;
 
-    public UIFillUpdater uiGunUpdater;
+    public UIFillUpdater uiFillUpdater;
 
     public Action<HealthBase> OnDamage;
     public Action<HealthBase> OnKill;
@@ -62,9 +62,9 @@ public class HealthBase : MonoBehaviour, IDamageable
 
     private void UpdateUI()
     {
-        if(uiGunUpdater != null)
+        if(uiFillUpdater != null)
         {
-            uiGunUpdater.UpdateValue((float)_currentLife / startLife);
+            uiFillUpdater.UpdateValue((float)_currentLife / startLife);
         }
     }
 }
