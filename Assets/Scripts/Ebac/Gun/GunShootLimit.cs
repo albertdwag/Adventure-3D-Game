@@ -70,6 +70,7 @@ public class GunShootLimit : GunBase
 
     private void GetAllUis()
     {
+        // Bug na interface de vida.
         uIGunUpdaters = GameObject.FindObjectsOfType<UIFillUpdater>().ToList();
     }
 }

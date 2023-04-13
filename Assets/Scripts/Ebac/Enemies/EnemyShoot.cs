@@ -12,6 +12,7 @@ namespace Ebac.Enemy
         {
             base.Init();
 
+            // Esta tendo Shake na camera do jogador.
             gunBase.StartShoot();
         }
     }
