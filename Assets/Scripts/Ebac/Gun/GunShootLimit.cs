@@ -13,7 +13,7 @@ public class GunShootLimit : GunBase
     private float _currentShots;
     private bool _reloading = false;
 
-    private void Start()
+    private void Awake()
     {
         GetAllUis();
     }
@@ -71,11 +71,8 @@ public class GunShootLimit : GunBase
     private void GetAllUis()
     {
         // Bug na interface de vida.
-        GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("GunUIFillUpdater");
-        
-        foreach(GameObject obj in objectsWithTag)
-        {
-            uIGunUpdaters.Add(obj.GetComponent<UIFillUpdater>());
-        }
+        uIGunUpdaters = GameObject.FindObjectsOfType<UIFillUpdater>()
+         .Where(i => i.gameObject.name != "Health")
+         .ToList();
     }
 }
