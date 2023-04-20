@@ -95,6 +95,19 @@ public class Player : Singleton<Player>
     }
     #endregion
 
+    public void ChangeSpeed(float speed, float duration)
+    {
+        StartCoroutine(ChangeSpeedCoroutine(speed, duration));
+    }
+
+    IEnumerator ChangeSpeedCoroutine(float localSpeed, float duration)
+    {
+        var defaultSpeed = vSpeed;
+        vSpeed = localSpeed;
+        yield return new WaitForSeconds(duration);
+        vSpeed = defaultSpeed;
+    }
+
     private void HandleMove()
     {
         var vertical = Input.GetAxis("Vertical");
