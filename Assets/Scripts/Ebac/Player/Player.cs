@@ -113,6 +113,19 @@ public class Player : Singleton<Player>
         _playerSetup.speed = defaultSpeed;
     }
 
+    public void ChangeJumpForce(float force, float duration)
+    {
+        StartCoroutine(ChangeJumpForceCoroutine(force, duration));
+    }
+
+    IEnumerator ChangeJumpForceCoroutine(float force, float duration)
+    {
+        var defaultForce = _playerSetup.forceJump;
+        _playerSetup.forceJump = force;
+        yield return new WaitForSeconds(duration);
+        _playerSetup.forceJump = defaultForce;
+    }
+
     public void ChangeTexture(ClothSetup setup, float duration)
     {
         StartCoroutine(ChangeTexutreCoroutine(setup, duration));
