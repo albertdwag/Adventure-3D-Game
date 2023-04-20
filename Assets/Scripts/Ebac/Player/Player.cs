@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ebac.Core.Singleton;
+using Cloth;
 
 public class Player : Singleton<Player>
 {
@@ -18,6 +19,10 @@ public class Player : Singleton<Player>
 
     [Header("Life")]
     public HealthBase healthBase;
+
+
+    [Space]
+    [SerializeField] private ClothChanger _clothChanger;
 
     public List<Collider> colliders;
      
@@ -102,10 +107,22 @@ public class Player : Singleton<Player>
 
     IEnumerator ChangeSpeedCoroutine(float localSpeed, float duration)
     {
-        var defaultSpeed = vSpeed;
-        vSpeed = localSpeed;
+        var defaultSpeed = _playerSetup.speed;
+        _playerSetup.speed = localSpeed;
         yield return new WaitForSeconds(duration);
-        vSpeed = defaultSpeed;
+        _playerSetup.speed = defaultSpeed;
+    }
+
+    public void ChangeTexture(ClothSetup setup, float duration)
+    {
+        StartCoroutine(ChangeTexutreCoroutine(setup, duration));
+    }
+
+    IEnumerator ChangeTexutreCoroutine(ClothSetup setup, float duration)
+    {
+        _clothChanger.ChangeTexture(setup);
+        yield return new WaitForSeconds(duration);
+        _clothChanger.ResetTexutre();
     }
 
     private void HandleMove()
