@@ -29,6 +29,7 @@ public class Player : Singleton<Player>
     private float vSpeed = 0f;
     private bool _isWalking;
     private bool _alive = true;
+    private bool _jumping = false;
 
     private void OnValidate()
     {
@@ -68,7 +69,7 @@ public class Player : Singleton<Player>
     {
         flashColors.ForEach(i => i.Flash());
         EffectsManager.Instance.ChangeVignette();
-        ShakeCamera.Instance.Shake();
+        //ShakeCamera.Instance.Shake();
     }
 
     public void Damage(float damage, Vector3 dir)
@@ -174,9 +175,25 @@ public class Player : Singleton<Player>
 
     private void HandleJump()
     {
-        if (Input.GetKeyDown(_playerSetup.jumpButton) && _characterController.isGrounded)
+        if (_characterController.isGrounded)
         {
-            vSpeed = _playerSetup.forceJump;
+            if (_jumping)
+            {
+                _jumping = false;
+                animator.SetTrigger("Land");
+            }
+
+            vSpeed = 0;
+            if (Input.GetKeyDown(_playerSetup.jumpButton))
+            {
+                vSpeed = _playerSetup.forceJump;
+
+                if (!_jumping)
+                {
+                    _jumping = true;
+                    animator.SetTrigger("Jump");
+                } 
+            }
         }
     }
 
