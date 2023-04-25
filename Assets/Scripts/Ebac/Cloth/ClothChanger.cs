@@ -15,6 +15,7 @@ namespace Cloth
         private void Awake()
         {
             _defaultTexture = (Texture2D)mesh.sharedMaterials[0].GetTexture(shaderIdName);
+            ChangeTexture();
         }
 
         [NaughtyAttributes.Button]
