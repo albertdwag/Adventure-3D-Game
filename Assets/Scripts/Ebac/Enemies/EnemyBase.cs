@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using DG.Tweening;
 using Ebac.Animation;
 
@@ -22,6 +23,9 @@ namespace Ebac.Enemy
         [Header("Animation")]
         [SerializeField] private float _currentLife;
         [SerializeField] private AnimationBase _animationBase;
+
+        [Header("Events")]
+        public UnityEvent OnKillEvent;
 
         private Player _player;
 
@@ -52,8 +56,10 @@ namespace Ebac.Enemy
             OnKill();
             _animationBase.PlayerAnimationByTrigger(AnimationType.DEATH);
         }
+
         protected virtual void OnKill() 
         {
+            OnKillEvent?.Invoke();
             if (hitBox != null) hitBox.enabled = false;
             Destroy(gameObject, 3f);
         }
