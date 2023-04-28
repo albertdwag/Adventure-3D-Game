@@ -24,16 +24,10 @@ public class SaveManager : Singleton<SaveManager>
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-        Invoke(nameof(Load), .1f);
-    }
-
     private void CreateNewSave()
     {
         _saveSetup = new SaveSetup();
-        _saveSetup.lastLevel = 0;
-        _saveSetup.playerName = "Albert";
+        ResetItems();
     }
 
     #region SAVE
@@ -47,8 +41,11 @@ public class SaveManager : Singleton<SaveManager>
 
     public void SaveItems()
     {
+        _saveSetup.checkpoint = CheckpointManager.Instance.LastCheckpointKey;
+        _saveSetup.currentLife = Player.Instance.healthBase.CurrentLife;
         _saveSetup.coins = Items.ItemManager.Instance.GetItemByType(Items.ItemType.COIN).soInt.value;
-        _saveSetup.health = Items.ItemManager.Instance.GetItemByType(Items.ItemType.LIFE_PACK).soInt.value;
+        _saveSetup.healthPacks = Items.ItemManager.Instance.GetItemByType(Items.ItemType.LIFE_PACK).soInt.value;
+
         Save();
     }
 
@@ -73,7 +70,7 @@ public class SaveManager : Singleton<SaveManager>
     }
 
     [NaughtyAttributes.Button]
-    private void Load()
+    public void Load()
     {
         string fileLoaded = "";
 
@@ -89,24 +86,33 @@ public class SaveManager : Singleton<SaveManager>
             Save();
         }
 
-
         FileLoaded.Invoke(_saveSetup);
     }
 
-    [NaughtyAttributes.Button]
-    private void SaveLevelOne()
+    private void ResetItems()
     {
-        SaveLastLevel(1);
+        _saveSetup.lastLevel = 0;
+        _saveSetup.checkpoint = 0;
+        _saveSetup.playerName = "Albert";
+        _saveSetup.currentLife = 100;
+        _saveSetup.coins = 0;
+        _saveSetup.healthPacks = 0;
+    }
+
+    private void OnDestroy()
+    {
+        ResetItems();
     }
     #endregion
 }
 
-[System.Serializable]
+[Serializable]
 public class SaveSetup
 {
     public int lastLevel;
+    public int checkpoint;
     public string playerName;
-
-    public float coins;
-    public float health;
+    public float currentLife;
+    public int coins;
+    public int healthPacks;
 }

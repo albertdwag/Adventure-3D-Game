@@ -6,7 +6,7 @@ using Cloth;
 
 public class HealthBase : MonoBehaviour, IDamageable
 {
-    public float startLife = 10f;
+    public float startLife = 100f;
     public bool destroyOnKill = false;
 
     public UIFillUpdater uiFillUpdater;
@@ -17,6 +17,10 @@ public class HealthBase : MonoBehaviour, IDamageable
     public float damageMultiply = 1f;
 
     [SerializeField] private float _currentLife;
+    public float CurrentLife
+    {
+        get { return _currentLife; }
+    }
 
     public void Awake()
     {
@@ -25,7 +29,8 @@ public class HealthBase : MonoBehaviour, IDamageable
 
     public void Init()
     {
-        ResetLife();
+        _currentLife = SaveManager.Instance.Setup.currentLife;
+        UpdateUI();
     }
 
     public void ResetLife()

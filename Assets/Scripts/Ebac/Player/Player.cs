@@ -43,6 +43,7 @@ public class Player : Singleton<Player>
 
         healthBase.OnDamage += Damage;
         healthBase.OnKill += OnKill;
+        Respawn();
     }
 
     private void Update()
@@ -95,9 +96,7 @@ public class Player : Singleton<Player>
     public void Respawn()
     {
         if (CheckpointManager.Instance.HasCheckpoint())
-        {
             transform.position = CheckpointManager.Instance.GetPositionFromLastCheckpoint();
-        }
     }
     #endregion
 

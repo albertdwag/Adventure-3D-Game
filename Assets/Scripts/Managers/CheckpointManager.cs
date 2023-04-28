@@ -5,25 +5,38 @@ using Ebac.Core.Singleton;
 
 public class CheckpointManager : Singleton<CheckpointManager>
 {
-    public int lastCheckPointKey = 0;
+    public int LastCheckpointKey
+    {
+        get { return lastCheckpointKey; }
+        set { lastCheckpointKey = value; }
+    }
     public List<CheckPointBase> checkpoints;
+
+    [SerializeField] private int lastCheckpointKey = 0;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
+        lastCheckpointKey = SaveManager.Instance.Setup.checkpoint;
+    }
 
     public void SaveCheckpoint(int i)
     {
-        if (i > lastCheckPointKey)
+        if (i > lastCheckpointKey)
         {
-            lastCheckPointKey = i;
+            lastCheckpointKey = i;
         }
     }
 
     public Vector3 GetPositionFromLastCheckpoint()
     {
-        var checkpoint = checkpoints.Find(i => i.key == lastCheckPointKey);
+        var checkpoint = checkpoints.Find(i => i.key == lastCheckpointKey);
         return checkpoint.transform.position;
     }
 
     public bool HasCheckpoint()
     {
-        return lastCheckPointKey > 0;
+        return lastCheckpointKey > 0;
     }
 }
