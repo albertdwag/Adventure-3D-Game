@@ -43,6 +43,10 @@ public class Player : Singleton<Player>
 
         healthBase.OnDamage += Damage;
         healthBase.OnKill += OnKill;
+    }
+
+    private void Start()
+    {
         Respawn();
     }
 

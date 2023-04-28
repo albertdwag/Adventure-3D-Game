@@ -17,7 +17,6 @@ public class CheckpointManager : Singleton<CheckpointManager>
     protected override void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad(gameObject);
         lastCheckpointKey = SaveManager.Instance.Setup.checkpoint;
     }
 
