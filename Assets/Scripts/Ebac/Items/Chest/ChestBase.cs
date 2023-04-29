@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class ChestBase : MonoBehaviour
 {
+    public SFXType sfxType;
     public KeyCode keyCode = KeyCode.F;
     public Animator animator;
     public string triggerOpen = "Open";
@@ -49,6 +50,7 @@ public class ChestBase : MonoBehaviour
     [NaughtyAttributes.Button]
     private void OpenChest()
     {
+        PlaySFX();
         if (_chestOpened) return;
 
         animator.SetTrigger(triggerOpen);
@@ -56,6 +58,11 @@ public class ChestBase : MonoBehaviour
         HideNotification();
 
         Invoke(nameof(ShowItem), 1f);
+    }
+
+    private void PlaySFX()
+    {
+        SFXPool.Instance.Play(sfxType);
     }
 
     private void CollectItem()
