@@ -20,11 +20,11 @@ public class Player : Singleton<Player>
     [Header("Life")]
     public HealthBase healthBase;
 
-
     [Space]
     [SerializeField] private ClothChanger _clothChanger;
 
     public List<Collider> colliders;
+    public Vector3 checkpointPosition;
      
     private float vSpeed = 0f;
     private bool _isWalking;
@@ -43,11 +43,6 @@ public class Player : Singleton<Player>
 
         healthBase.OnDamage += Damage;
         healthBase.OnKill += OnKill;
-    }
-
-    private void Start()
-    {
-        Respawn();
     }
 
     private void Update()

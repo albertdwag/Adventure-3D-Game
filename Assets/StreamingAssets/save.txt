@@ -1,8 +1,8 @@
 {
     "lastLevel": 0,
-    "checkpoint": 1,
-    "playerName": "Albert",
-    "currentLife": 97.0,
-    "coins": 1,
-    "healthPacks": 1
+    "checkpoint": 2,
+    "playerName": "",
+    "currentLife": 100.0,
+    "coins": 0,
+    "healthPacks": 0
 }

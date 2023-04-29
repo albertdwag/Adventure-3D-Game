@@ -20,6 +20,11 @@ public class CheckpointManager : Singleton<CheckpointManager>
         lastCheckpointKey = SaveManager.Instance.Setup.checkpoint;
     }
 
+    private void Start()
+    {
+        Player.Instance.Respawn();
+    }
+
     public void SaveCheckpoint(int i)
     {
         if (i > lastCheckpointKey)
