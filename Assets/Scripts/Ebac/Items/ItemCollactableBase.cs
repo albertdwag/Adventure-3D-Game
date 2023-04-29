@@ -7,6 +7,7 @@ namespace Items
 {
     public class ItemCollactableBase : MonoBehaviour
     {
+        public SFXType sfxType;
         public ItemType itemType;
 
         public string compareTag = "Player";
@@ -32,6 +33,11 @@ namespace Items
             //gameObject.GetComponent<Collider>().enabled = false;
         }
 
+        private void PlaySFX()
+        {
+            SFXPool.Instance.Play(sfxType);
+        }
+
         protected virtual void HideItens()
         {
             if (graphicItem != null) graphicItem.SetActive(false);
@@ -40,6 +46,7 @@ namespace Items
 
         protected virtual void Collect()
         {
+            PlaySFX();
             if (hitBox != null) hitBox.enabled = false;
             HideItens();
             OnCollect();
