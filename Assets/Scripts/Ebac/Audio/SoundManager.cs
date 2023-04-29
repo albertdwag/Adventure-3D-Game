@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using Ebac.Core.Singleton;
 
 public enum MusicType
@@ -21,8 +22,10 @@ public class SoundManager : Singleton<SoundManager>
 {
     public List<MusicSetup> musicSetups;
     public List<SFXSetup> sfxSetups;
-
     public AudioSource musicSource;
+
+    public AudioMixer group;
+    public string floatParam = "MasterVolume";
 
     public void PlayMusicByType(MusicType musicType)
     {
@@ -39,6 +42,18 @@ public class SoundManager : Singleton<SoundManager>
     public SFXSetup GetSFXByType(SFXType sfxType)
     {
         return sfxSetups.Find(i => i.sfxType == sfxType);
+    }
+
+    [NaughtyAttributes.Button]
+    public void DisableVolume()
+    {
+        group.SetFloat(floatParam, -80);
+    }
+
+    [NaughtyAttributes.Button]
+    public void EnableVolume()
+    {
+        group.SetFloat(floatParam, 0);
     }
 }
 
